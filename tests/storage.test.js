@@ -9,50 +9,69 @@ import { isNotNull, check as checkStorage } from '../lib/storage'
 
 const {asyncLocal} = SimpleWebStorage()
 
-
-
-
-
-const testThrown = (func, val = '') => {
-  try { func(val) } 
-  catch (err) {
-    return err.message.trim() === 'window is not defined'
+beforeAll(()=>{
+  if(process.env.NODE_VER) {
+    console.log(`Testing on Node v${process.env.NODE_VER}`)
   }
-}
-
-test('Testing storage function', () => {
-  expect(isNotNull(undefined)).toBeFalsy()
-  expect(isNotNull(null)).toBeFalsy()
 })
 
-test('Testing all API import', () => {
-  expect(SimpleWebStorage()).toBeDefined()
-  expect(asyncLocal).toBeTruthy()
-})
 
-test('Testing partial import', () => {
-  expect(getLocalStorage).toBeDefined()
-  expect(getCookieStorage).toBeDefined()
-  expect(getSessionStorage).toBeDefined()
-})
+describe('base API testing...', () => {
+  test('Testing storage function', () => {
+    expect(isNotNull(undefined)).toBeFalsy()
+    expect(isNotNull(null)).toBeFalsy()
+  })
+  
+  test('Testing all API import', () => {
+    expect(SimpleWebStorage()).toBeTruthy()
+    expect(asyncLocal).toBeTruthy()
+  })
+  
+  test('Testing base storage object', () => {
+    expect(LocalStorage).toBeTruthy()
+    expect(CookieStorage).toBeTruthy()
+    expect(SessionStorage).toBeTruthy()
+  });
+  
+  test('Testing partial import', () => {
+    expect(getLocalStorage).toBeTruthy()
+    expect(getCookieStorage).toBeTruthy()
+    expect(getSessionStorage).toBeTruthy()
+  })
+});
 
-describe('async API testing', () => {
-  describe('asyncLocalStorage API testing...', () => {
-    test('[set]should not return false',()=>{
-        return asyncLocal
-          .set('foo','bar')
-          .then(r=> expect(r).toBeTruthy())
-    })
-    test('[get]get a value that was inserted before, must not null', () => {
-        return asyncLocal
-          .get('foo')
-          .then(r=> expect(r).toBe('bar'))
-    });
-    test("[get]get a key that doesn't exists, must null", () => {
-        expect.assertions(1)
-        return asyncLocal
-          .get('fakeKey')
-          .catch(r=> expect(r).toBeNull())
-    });
+describe('SessionStorage API testing...', () => {
+  test('[set]should not return false', () => {
+    
+  });
+});
+
+describe('LocalStorage API testing...', () => {
+  test('[set]should not error',()=>{
+      return asyncLocal
+        .set('foo','bar')
+        .then(r=> expect(r).toBeTruthy())
+  })
+  test('[get]get a value that was inserted before, must exists', () => {
+      return asyncLocal
+        .get('foo')
+        .then(r=> expect(r).toBe('bar'))
+  });
+  test("[get]get a key that doesn't exists, must null", () => {
+      expect.assertions(1)
+      return asyncLocal
+        .get('fakeKey')
+        .catch(r=> expect(r).toBeNull())
+  });
+  test('[remove]remove an existing key, must return true', () => {
+      return asyncLocal
+        .remove('foo')
+        .then(r=> expect(r).toBe(true))
+  });
+  test('[remove]remove an non-existing key, must return false', () => {
+      expect.assertions(1)
+      return asyncLocal
+        .remove('fakeKey')
+        .catch(r=> expect(r).toBe(false))
   });
 });

@@ -30,11 +30,8 @@ export const set = (key, value = 0, expiryInMinutes = null) => {
 
 export const remove = key => {
   return new Promise((resolve,reject)=>{
-    try{
-      resolve(removeStorage(checkStorage('localStorage'), key))
-    }catch(ex){
-      reject(ex)
-    }
+    const result = removeStorage(checkStorage('localStorage'), key)
+    result ? resolve(true) : reject(false);
   })
 }
 

@@ -8,48 +8,54 @@ import {
 } from './storage'
 
 export const get = key => {
-  try {
-    return getStorage(checkStorage('localStorage'), key)
-  } catch(err) {
-    console.error(err.message)
-  }
-  return null
+  return new Promise((resolve,reject)=>{
+    const result =  getStorage(checkStorage('localStorage'),key);
+    if(result === null) {
+      reject(null);
+      return;
+    }
+    resolve(result);
+  })
 }
 
 export const set = (key, value = 0, expiryInMinutes = null) => {
-  try {
-    return setStorage(checkStorage('localStorage'), key, value, expiryInMinutes)
-  } catch(err) {
-    console.error(err.message)
-  }
-  return false
+  return new Promise((resolve,reject)=>{
+      try{
+        resolve(setStorage(checkStorage('localStorage'), key, value, expiryInMinutes))
+      }catch(err){
+        reject(err)
+      }
+  })
 }
 
 export const remove = key => {
-  try {
-    return removeStorage(checkStorage('localStorage'), key)
-  } catch(err) {
-    console.error(err.message)
-  }
-  return false
+  return new Promise((resolve,reject)=>{
+    try{
+      resolve(removeStorage(checkStorage('localStorage'), key))
+    }catch(ex){
+      reject(ex)
+    }
+  })
 }
 
 export const clear = () => {
-  try {
-    return clearStorage(checkStorage('localStorage'))
-  } catch(err) {
-    console.error(err.message)
-  }
-  return false
+  return new Promise((resolve,reject)=>{
+    try{
+      resolve(clearStorage(checkStorage('localStorage')))
+    }catch(ex){
+      reject(ex)
+    }
+  })
 }
 
 export const keys = () => {
-  try {
-    return keysStorage(checkStorage('localStorage'))
-  } catch(err) {
-    console.error(err.message)
-  }
-  return false
+  return new Promise((resolve,reject)=>{
+    try {
+      resolve(keysStorage(checkStorage('localStorage')))
+    }catch(ex){
+      reject(ex)
+    }
+  })
 }
 
 export default () => ({ get, set, remove, clear, keys })

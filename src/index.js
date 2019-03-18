@@ -2,8 +2,8 @@ import LocalStorage from './local'
 import CookieStorage from './cookie'
 import SessionStorage from './session'
 
-global.SimpleWebStorage = () => ({
-  local: {
+export const SimpleWebStorage = () => ({
+  asyncLocal: {
     get: LocalStorage().get,
     set: LocalStorage().set,
     remove: LocalStorage().remove,
@@ -25,5 +25,7 @@ global.SimpleWebStorage = () => ({
     keys: SessionStorage().keys
   }
 })
+
+global.SimpleWebStorage = SimpleWebStorage
 
 export default SimpleWebStorage

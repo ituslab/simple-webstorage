@@ -40,6 +40,8 @@ describe('base API testing...', () => {
   })
 });
 
+
+
 describe('SessionStorage API testing...', () => {
   test('[set]should not return false', () => {
     return asyncSession
@@ -54,8 +56,8 @@ describe('SessionStorage API testing...', () => {
 
   test('[get]get a value that was inserted before, must exists', () => {
       return asyncSession
-        .get('foo')
-        .then(r=> expect(r).toBe('bar'))
+        .get('x')
+        .then(r=> expect(r).toBe('y'))
   });
   test("[get]get a key that doesn't exists, must null", () => {
       expect.assertions(1)
@@ -65,7 +67,7 @@ describe('SessionStorage API testing...', () => {
   });
   test('[remove]remove an existing key, must return true', () => {
       return asyncSession
-        .remove('foo')
+        .remove('x')
         .then(r=> expect(r).toBe(true))
   });
 
@@ -99,7 +101,7 @@ describe('LocalStorage API testing...', () => {
   test('[keys] total keys must be 1', () => {
       return asyncLocal
         .keys()
-        .then(r=> expect(r.length).toHaveLength(1))
+        .then(r=> expect(r).toHaveLength(1))
   });
 
   test('[get]get a value that was inserted before, must exists', () => {
@@ -122,7 +124,7 @@ describe('LocalStorage API testing...', () => {
   test('[keys] total keys must be empty', () => {
       return asyncLocal
         .keys()
-        .then(r=> expect(r.length).toHaveLength(0))
+        .then(r=> expect(r).toHaveLength(0))
   });
 
   test('[remove]remove an non-existing key, must return false', () => {

@@ -88,4 +88,10 @@ describe('LocalStorage API testing...', () => {
         .remove('fakeKey')
         .catch(r=> expect(r).toBe(false))
   });
+
+  test('[clear]clear all keys, must return true', () => {
+      return asyncLocal
+        .clear()
+        .then(r=> expect(r).toBe(true))
+  });
 });

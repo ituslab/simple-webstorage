@@ -3,4 +3,6 @@ dist: xenial
 branches:
   only:
     - master
+node_js:
+  - '11'
   

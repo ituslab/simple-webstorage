@@ -20,17 +20,18 @@ export const get = key => {
 
 export const set = (key, value = 0, expiryInMinutes = 5) => {
   return new Promise((resolve,reject)=>{
-    
+    try{
+      resolve(setStorage(checkStorage('sessionStorage'), key , value , expiryInMinutes))
+    }catch(ex){
+      reject(false)
+    }
   })
-  try {
-    return setStorage(checkStorage('sessionStorage'), key, value, expiryInMinutes)
-  } catch(err) {
-    console.error(err.message)
-  }
-  return false
 }
 
 export const remove = key => {
+  return new Promise((resolve,reject)=>{
+    
+  })
   try {
     return removeStorage(checkStorage('sessionStorage'), key)
   } catch(err) {

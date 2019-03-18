@@ -30,32 +30,29 @@ export const set = (key, value = 0, expiryInMinutes = 5) => {
 
 export const remove = key => {
   return new Promise((resolve,reject)=>{
-    
+    const result = removeStorage(checkStorage('sessionStorage'),key)
+    result ? resolve(true) : reject(false);
   })
-  try {
-    return removeStorage(checkStorage('sessionStorage'), key)
-  } catch(err) {
-    console.error(err.message)
-  }
-  return false
 }
 
 export const clear = () => {
-  try {
-    return clearStorage(checkStorage('sessionStorage'))
-  } catch(err) {
-    console.error(err.message)
-  }
-  return false
+  return new Promise((resolve,reject)=>{
+    try {
+      resolve(clearStorage(checkStorage('sessionStorage')))
+    } catch(err) {
+      reject(false)
+    }
+  })
 }
 
 export const keys = () => {
-  try {
-    return keysStorage(checkStorage('sessionStorage'))
-  } catch(err) {
-    console.error(err.message)
-  }
-  return false
+  return new Promise((resolve,reject)=>{
+    try {
+      resolve(keysStorage(checkStorage('sessionStorage')))
+    } catch(err) {
+      reject(err)
+    }
+  })
 }
 
 export default () => ({ get, set, remove, clear, keys })

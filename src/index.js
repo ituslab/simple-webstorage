@@ -17,7 +17,7 @@ export const SimpleWebStorage = () => ({
     clear: CookieStorage().clear,
     keys: CookieStorage().keys
   },
-  session: {
+  asyncSession: {
     get: SessionStorage().get,
     set: SessionStorage().set,
     remove: SessionStorage().remove,

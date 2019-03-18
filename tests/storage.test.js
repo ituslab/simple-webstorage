@@ -7,7 +7,7 @@ import { isNotNull, check as checkStorage } from '../lib/storage'
 
 
 
-const {asyncLocal} = SimpleWebStorage()
+const {asyncLocal, asyncSession } = SimpleWebStorage()
 
 beforeAll(()=>{
   if(process.env.NODE_VER) {
@@ -42,7 +42,50 @@ describe('base API testing...', () => {
 
 describe('SessionStorage API testing...', () => {
   test('[set]should not return false', () => {
-    
+    return asyncSession
+      .set('x','y')
+      .then(r=> expect(r).toBeTruthy())
+  });
+  test('[keys] total keys must be 1', () => {
+    return asyncSession
+      .keys()
+      .then(r=> expect(r).toHaveLength(1))
+  });
+
+  test('[get]get a value that was inserted before, must exists', () => {
+      return asyncSession
+        .get('foo')
+        .then(r=> expect(r).toBe('bar'))
+  });
+  test("[get]get a key that doesn't exists, must null", () => {
+      expect.assertions(1)
+      return asyncSession
+        .get('fakeKey')
+        .catch(r=> expect(r).toBeNull())
+  });
+  test('[remove]remove an existing key, must return true', () => {
+      return asyncSession
+        .remove('foo')
+        .then(r=> expect(r).toBe(true))
+  });
+
+  test('[keys] total keys must be empty', () => {
+      return asyncSession
+        .keys()
+        .then(r=> expect(r).toHaveLength(0))
+  });
+
+  test('[remove]remove an non-existing key, must return false', () => {
+      expect.assertions(1)
+      return asyncSession
+        .remove('fakeKey')
+        .catch(r=> expect(r).toBe(false))
+  });
+
+  test('[clear]clear all keys, must return true', () => {
+      return asyncSession
+        .clear()
+        .then(r=> expect(r).toBe(true))
   });
 });
 

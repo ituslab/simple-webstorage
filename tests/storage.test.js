@@ -52,6 +52,13 @@ describe('LocalStorage API testing...', () => {
         .set('foo','bar')
         .then(r=> expect(r).toBeTruthy())
   })
+
+  test('[keys] total keys must be 1', () => {
+      return asyncLocal
+        .keys()
+        .then(r=> expect(r.length).toHaveLength(1))
+  });
+
   test('[get]get a value that was inserted before, must exists', () => {
       return asyncLocal
         .get('foo')
@@ -68,6 +75,13 @@ describe('LocalStorage API testing...', () => {
         .remove('foo')
         .then(r=> expect(r).toBe(true))
   });
+
+  test('[keys] total keys must be empty', () => {
+      return asyncLocal
+        .keys()
+        .then(r=> expect(r.length).toHaveLength(0))
+  });
+
   test('[remove]remove an non-existing key, must return false', () => {
       expect.assertions(1)
       return asyncLocal

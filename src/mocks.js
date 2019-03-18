@@ -11,6 +11,9 @@ function storageMock() {
         removeItem: function(key) {
         delete storage[key];
         },
+        clear: function(){
+            storage = {}
+        },
         get length() {
         return Object.keys(storage).length;
         },

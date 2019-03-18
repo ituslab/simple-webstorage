@@ -9,12 +9,6 @@ import { isNotNull, check as checkStorage } from '../lib/storage'
 
 const {asyncLocal, asyncSession } = SimpleWebStorage()
 
-beforeAll(()=>{
-  if(process.env.NODE_VER) {
-    console.log(`Testing on Node v${process.env.NODE_VER}`)
-  }
-})
-
 
 describe('base API testing...', () => {
   test('Testing storage function', () => {
@@ -40,6 +34,10 @@ describe('base API testing...', () => {
   })
 });
 
+
+describe('CookieStorage API testing...', () => {
+  
+});
 
 
 describe('SessionStorage API testing...', () => {

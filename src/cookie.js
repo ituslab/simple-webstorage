@@ -25,8 +25,8 @@ export const get = key => {
       let cookie = cookies[i]
       while (cookie.charAt(0) === ' ') cookie = cookie.substring(1, cookie.length)
       if (cookie.indexOf(key) === 0){ 
-        resolve(JSON.parse(cookie.substring(key.length, cookie.length))); 
-        return;
+        const result  = JSON.parse(cookie.substring(key.length, cookie.length))
+        resolve(result); 
       }
     }
     reject(null)
@@ -37,8 +37,10 @@ export const remove = async (key) => {
   const getKey = await get(key)
   if (isNotNull(getKey)) {
     await set(key, '', -1)
+    console.log('isNotNull::after set...',getKey)
     return true;
   }
+  console.log('isNul...')
   return false;
 }
 

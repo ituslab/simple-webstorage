@@ -1,6 +1,8 @@
 # [Async Simple Web Storage](https://www.npmjs.com/package/simple-webstorage)
 > Lightweight utilities that can make easier to write and read application storage in client browser.
-it's a asynchronous API using Promise
+Inspired by [Sutan gading](), one of our team member
+
+> it's a asynchronous API using Promise
 
 ### Support :
 - Local Storage
@@ -127,6 +129,4 @@ cookie
 | `asyncCookie` or `asyncSession` or `asyncLocal`   | clear       |  none                                                                               |
 
 ---
-Feel free to contribute [simple-webstorage](https://github.com/sutanlab/simple-webstorage) 🙂
-
-Copyright © 2019 by Sutan Gading Fadhillah Nasution
+Copyright © 2019 by IT-Polsri, soon will be IT-Us  🙂

@@ -22,9 +22,19 @@ import SimpleWebStorage from 'simple-webstorage'
 
 const storage = SimpleWebStorage()
 
-storage.local.set('key', 'value') // empty the third parameter to store data permanently (only affected in local)
-storage.cookie.set('key', 'value', 5)
-storage.session.set('key', 'value', 5)
+// empty the third parameter to store data permanently (only affected in local)
+storage
+  .asyncLocal
+  .set('key', 'value') 
+  .then(r=> /*do what you want to do..*/)
+storage
+  .asyncCookie
+  .set('key', 'value', 5)
+  .then(r=> /*do what you want to do..*/)
+storage
+  .asyncSession
+  .set('key', 'value', 5)
+  .then(r=> /*do what you want to do..*/)
 ```
 
 #### Partial API import
@@ -33,11 +43,6 @@ storage.session.set('key', 'value', 5)
 // # for local storage
 import { get as getLocalStorage, set as setLocalStorage } from 'simple-webstorage/lib/local'
 
-// # for session storage
-// import { get, set } from 'simple-webstorage/lib/session'
-
-// # for cookie storage
-// import { get, set } from 'simple-webstorage/lib/cookie'
 
 setLocalStorage('key', {
   name: 'you',
@@ -45,9 +50,13 @@ setLocalStorage('key', {
     'angry',
     'crying'
   ]
-}) 
+})
+  .then(r=> /*do what you want to do..*/) 
 
-console.log(getLocalStorage('key')) // { name: 'you', skill: ['angry', 'crying'] }
+// { name: 'you', skill: ['angry', 'crying'] }
+getLocalStorage('key')
+  .then(r=> /*do what you want to do..*/)
+
 ```
 
 ##### or you can import partial API like this :
@@ -64,11 +73,23 @@ import CookieStorage from 'simple-webstorage/lib/cookie'
 
 const cookie = CookieStorage()
 
-cookie.set('remembered', true)
-cookie.set('forgotten', true)
+cookie
+  .set('remembered', true)
+  .then(r=> /*do what you want to do..*/)
+cookie
+  .set('forgotten', true)
+  .then(r=> /*do what you want to do..*/)
 
-console.log(cookie.get('remembered')) // true # get values from key. returns any
-console.log(cookie.keys()) // ['remembered', 'forgotten'] # list all keys. returns array
+
+cookie
+  .get('remembered')
+  .then(r=> /*do what you want to do..*/)
+
+// ['remembered', 'forgotten'] # list all keys. returns array
+cookie
+  .keys()
+  .then(r=> /*do what you want to do..*/)
+
 ```
 
 ### 2. All in minified js
@@ -78,9 +99,18 @@ console.log(cookie.keys()) // ['remembered', 'forgotten'] # list all keys. retur
 <script type="text/javascript">
   var storage = SimpleWebStorage();
 
-  storage.local.set('key', 'value');
-  storage.cookie.set('key', 'value', 5);
-  storage.session.set('key', 'value', 5);
+  storage
+    .asyncLocal
+    .set('key', 'value');
+    .then(r=> /*do what you want to do..*/)
+  storage
+    .asyncCookie
+    .set('key', 'value', 5);
+    .then(r=> /*do what you want to do..*/)
+  storage
+    .asyncSession
+    .set('key', 'value', 5);
+    .then(r=> /*do what you want to do..*/)
 </script>
 ```
 

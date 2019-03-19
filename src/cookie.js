@@ -34,14 +34,16 @@ export const get = key => {
 }
 
 export const remove = async (key) => {
-  const getKey = await get(key)
-  if (isNotNull(getKey)) {
-    await set(key, '', -1)
-    console.log('isNotNull::after set...',getKey)
-    return true;
+  try {
+    const getKey = await get(key)
+    if (isNotNull(getKey)) {
+      await set(key, '', -1)
+      return true;
+    }
+    return false;
+  } catch (error) {
+    return false;
   }
-  console.log('isNul...')
-  return false;
 }
 
 export const clear = () => {

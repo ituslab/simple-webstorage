@@ -3,7 +3,7 @@
  */
 import "@babel/polyfill"
 import SimpleWebStorage from '../lib/index'
-import LocalStorage, { get as getLocalStorage } from '../lib/local'
+import LocalStorage, { get as getLocalStorage, setBulk as setBulkLocal  } from '../lib/local'
 import CookieStorage, { get as getCookieStorage } from '../lib/cookie'
 import SessionStorage, { get as getSessionStorage } from '../lib/session'
 import { isNotNull, check as checkStorage } from '../lib/storage'
@@ -221,6 +221,41 @@ describe('LocalStorage API testing...', () => {
         }
       ])
       .catch(r=> expect(r.message).toMatch(/invalid data format/))
+  });
+
+  test('[setBulk] set array of data, with undefined key property. must error', () => {
+    expect.assertions(1)
+    return asyncLocal
+      .setBulk([
+        {
+          value:'bar'
+        },
+        {
+          key:'a',
+          value:'b'
+        }
+      ])
+      .catch(r=> expect(r.message).toMatch(/invalid data format/))
+  });
+
+  test('[setBulk] using partial API import, [setBulkLocal]', () => {
+    return setBulkLocal([
+      {
+        key:'a',
+        value:'override this value'
+      },
+      {
+        key:'b',
+        value:'this one too'
+      }
+    ])
+    .then(r=> expect(r).toHaveLength(2))
+  });
+
+  test('[keys] get total keys, must have 2 lengths', () => {
+    return asyncLocal
+      .keys()
+      .then(r=> expect(r).toHaveLength(2))
   });
 
 });

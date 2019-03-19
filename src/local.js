@@ -5,7 +5,6 @@ import {
   remove as removeStorage,
   clear as clearStorage,
   keys as keysStorage,
-  isNotNull
 } from './storage'
 
 export const get = key => {
@@ -35,14 +34,18 @@ export const setBulk = arrOfData => {
       const invalidKeys = Object
         .keys(d)
         .filter(r=> r !== 'key' && r !== 'value' && r !== 'expiryInMinutes')
-      if(invalidKeys.length > 0) reject(new Error(`invalid data format, you have specified invalid key name , valid key names are key,value,expiryInMinutes`))      
+
+      if(invalidKeys.length > 0) {
+        reject(new Error(`invalid data format, you have specified invalid key name , valid key names are key,value,expiryInMinutes`));      
+        return;
+      } 
       const {key , value  , expiryInMinutes} = d
-      const keyIsNotNull = isNotNull(key)
-      const valueIsNotNull = isNotNull(value)
-      if(!keyIsNotNull || !valueIsNotNull) {
-        reject(new Error(`invalid data format, check the index ${idx}, are key or value property exist ?`))
-        return
+
+      if(typeof key === 'undefined') {
+        reject(new Error(`invalid data format, object doesn't have key property at ${idx}`));
+        return;
       }
+
       setStorage(checkStorage('localStorage'),key,value,expiryInMinutes)
     })
     resolve(arrOfData)

@@ -1,6 +1,6 @@
 # [Async Simple Web Storage](https://www.npmjs.com/package/simple-webstorage)
 > Lightweight utilities that can make easier to write and read application storage in client browser.
-Inspired by [Sutan gading](), one of our team member
+Inspired by [Sutan gading's simple web storage](https://github.com/sutanlab/simple-webstorage), one of our team member
 
 > it's a asynchronous API using Promise
 
@@ -38,13 +38,32 @@ storage
   .asyncSession
   .set('key', 'value', 5)
   .then(r=> /*do what you want to do..*/)
+
+// we support setBulk too :), if you want to set data all at once
+storage
+  .asyncLocal
+  .setBulk([
+    {
+      key:'a',
+      value:'hello'
+    },
+    {
+      key:'b',
+      value:'world'
+    }
+  ])
+  .then(r=> /*do what you want to do*/)
+  // resolved value = [{key:'a',value:'hello'} , {key:'b',value:'world'}]
 ```
 
 #### Partial API import
 
 ```js
 // # for local storage
-import { get as getLocalStorage, set as setLocalStorage } from 'simple-webstorage/lib/local'
+import { 
+  get as getLocalStorage, 
+  set as setLocalStorage 
+} from 'simple-webstorage/lib/local'
 
 
 setLocalStorage('key', {

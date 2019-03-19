@@ -1,9 +1,6 @@
 export const isNotNull = variable => (typeof variable !== 'undefined' && variable !== null)
 
 export const check = storage => {
-  if(process.env.IS_TEST_MODE){
-    return global[storage]
-  }
   if (storage in window && window[storage]) return window[storage]
   throw new Error(`Your Browser doesn't support ${storage}`)
 }

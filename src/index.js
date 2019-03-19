@@ -10,7 +10,7 @@ export const SimpleWebStorage = () => ({
     clear: LocalStorage().clear,
     keys: LocalStorage().keys
   },
-  cookie: {
+  asyncCookie: {
     get: CookieStorage().get,
     set: CookieStorage().set,
     remove: CookieStorage().remove,

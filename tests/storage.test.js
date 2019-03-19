@@ -1,4 +1,6 @@
-import '../src/mocks';
+/**
+ * @jest-environment jsdom
+ */
 import SimpleWebStorage from '../lib/index'
 import LocalStorage, { get as getLocalStorage } from '../lib/local'
 import CookieStorage, { get as getCookieStorage } from '../lib/cookie'
@@ -7,7 +9,8 @@ import { isNotNull, check as checkStorage } from '../lib/storage'
 
 
 
-const {asyncLocal, asyncSession } = SimpleWebStorage()
+
+const {asyncLocal, asyncSession, asyncCookie } = SimpleWebStorage()
 
 
 describe('base API testing...', () => {
@@ -36,7 +39,52 @@ describe('base API testing...', () => {
 
 
 describe('CookieStorage API testing...', () => {
-  
+  test('[set]should not return false', () => {
+    return asyncCookie
+      .set('x',1)
+      .then(r=> expect(r).toBeTruthy())
+  });
+  test('[keys] total keys must be 1', () => {
+    return asyncCookie
+      .keys()
+      .then(r=> expect(r).toHaveLength(1))
+  });
+
+  test('[get]get a value that was inserted before, must exists', () => {
+      return asyncCookie
+        .get('x')
+        .then(r=> expect(r).toBe(1))
+  });
+  test("[get]get a key that doesn't exists, must null", () => {
+      expect.assertions(1)
+      return asyncCookie
+        .get('fakeKey')
+        .catch(r=> expect(r).toBeNull())
+  });
+  test('[remove]remove an existing key, must return true', () => {
+      return asyncCookie
+        .remove('x')
+        .then(r=> expect(r).toBe(true))
+  });
+
+  test('[keys] total keys must be empty', () => {
+      return asyncCookie
+        .keys()
+        .then(r=> expect(r).toHaveLength(0))
+  });
+
+  test('[remove]remove an non-existing key, must return false', () => {
+      expect.assertions(1)
+      return asyncCookie
+        .remove('fakeKey')
+        .catch(r=> expect(r).toBe(false))
+  });
+
+  test('[clear]clear all keys, must return true', () => {
+      return asyncCookie
+        .clear()
+        .then(r=> expect(r).toBe(true))
+  });
 });
 
 

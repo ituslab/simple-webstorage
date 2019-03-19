@@ -62,7 +62,8 @@ storage
 // # for local storage
 import { 
   get as getLocalStorage, 
-  set as setLocalStorage 
+  set as setLocalStorage ,
+  setBulk as setBulkLocalStorage
 } from 'simple-webstorage/lib/local'
 
 
@@ -74,6 +75,18 @@ setLocalStorage('key', {
   ]
 })
   .then(r=> /*do what you want to do..*/) 
+
+setBulkLocalStorage([
+  {
+    key:'a',
+    value:'override this value'
+  },
+  {
+    key:'b',
+    value:'this one too'
+  }
+])
+.then(r=> /*do what you want to do..*/)
 
 // { name: 'you', skill: ['angry', 'crying'] }
 getLocalStorage('key')

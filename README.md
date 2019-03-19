@@ -1,5 +1,6 @@
-# [Simple Web Storage](https://www.npmjs.com/package/simple-webstorage)
+# [Async Simple Web Storage](https://www.npmjs.com/package/simple-webstorage)
 > Lightweight utilities that can make easier to write and read application storage in client browser.
+it's a asynchronous API using Promise
 
 ### Support :
 - Local Storage
@@ -118,16 +119,12 @@ cookie
 
 | Storage   | Method      | Parameters                                                                                  |
 |-----------|-------------|---------------------------------------------------------------------------------------------|
-| `local`   | get         | `key` (type: String)                                                                        |
-| `local`   | set         | `key` (type: String), `value` (type: any, default: 0), `expiryInMinutes` (type: Number, default: null)  |
-| `local`   | remove      | `key` (type: String)                                                                        |
-| `local`   | clear       |  none                                                                                       |
-| `local`   | keys        |  none                                                                                       |
-| `cookie` or `session`  | get         | `key` (type: String)                                                           |
-| `cookie` or `session`  | set         | `key` (type: String), `value` (type: any, default: 0), `expiryInMinutes` (type: Number, default: 5)     |
-| `cookie` or `session`  | remove      | `key` (type: String)                                                                        |
-| `cookie` or `session`  | keys        |  none                                                                                       |
-| `cookie` or `session`  | clear       |  none                                                                               |
+| `asyncLocal`   | set         | `key` (type: String), `value` (type: any, default: 0), `expiryInMinutes` (type: Number, default: null)  |
+| `asyncCookie` or `asyncSession` or `asyncLocal`   | get         | `key` (type: String)                                                           |
+| `asyncCookie` or `asyncSession`   | set         | `key` (type: String), `value` (type: any, default: 0), `expiryInMinutes` (type: Number, default: 5)     |
+| `asyncCookie` or `asyncSession` or `asyncLocal`   | remove      | `key` (type: String)                                                                        |
+| `asyncCookie` or `asyncSession` or `asyncLocal`   | keys        |  none                                                                                       |
+| `asyncCookie` or `asyncSession` or `asyncLocal`   | clear       |  none                                                                               |
 
 ---
 Feel free to contribute [simple-webstorage](https://github.com/sutanlab/simple-webstorage) 🙂

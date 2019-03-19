@@ -33,14 +33,13 @@ export const get = key => {
   })
 }
 
-export const remove = key => {
-  return new Promise((resolve,reject)=>{
-    if (isNotNull(get(key))) {
-      set(key, '', -1)
-      resolve(true)
-    }
-    reject(false)
-  })
+export const remove = async (key) => {
+  const getKey = await get(key)
+  if (isNotNull(getKey)) {
+    await set(key, '', -1)
+    return true;
+  }
+  return false;
 }
 
 export const clear = () => {

@@ -5,6 +5,29 @@ export const check = storage => {
   throw new Error(`Your Browser doesn't support ${storage}`)
 }
 
+export const validateKeys = (arrOfData,cb,onEach) =>{
+  try {
+    arrOfData.forEach((d,idx)=>{
+      const invalidKeys = Object
+      .keys(d)
+      .filter(r=> r !== 'key' && r !== 'value' && r !== 'expiryInMinutes')
+  
+      if(invalidKeys.length > 0) {
+        throw new Error(`invalid data format, you have specified invalid key name , valid key names are key,value,expiryInMinutes`);     
+      } 
+      const {key , value  , expiryInMinutes} = d
+  
+      if(typeof key === 'undefined') {
+        throw new Error(`invalid data format, object doesn't have key property at ${idx}`);
+      }
+      onEach(d)
+    })
+    cb(arrOfData)
+  } catch (error) {
+    cb(error)
+  }
+}
+
 export const get = (storage, key) => {
   const cache = storage.getItem(key)
   if (isNotNull(cache)) {

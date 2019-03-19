@@ -5,6 +5,7 @@ import {
   remove as removeStorage,
   clear as clearStorage,
   keys as keysStorage,
+  validateKeys
 } from './storage'
 
 export const get = key => {
@@ -30,25 +31,15 @@ export const set = (key, value = 0, expiryInMinutes = null) => {
 
 export const setBulk = arrOfData => {
   return new Promise((resolve,reject)=>{
-    arrOfData.forEach((d,idx)=>{
-      const invalidKeys = Object
-        .keys(d)
-        .filter(r=> r !== 'key' && r !== 'value' && r !== 'expiryInMinutes')
-
-      if(invalidKeys.length > 0) {
-        reject(new Error(`invalid data format, you have specified invalid key name , valid key names are key,value,expiryInMinutes`));      
-        return;
-      } 
-      const {key , value  , expiryInMinutes} = d
-
-      if(typeof key === 'undefined') {
-        reject(new Error(`invalid data format, object doesn't have key property at ${idx}`));
+    validateKeys(arrOfData,data=>{
+      if(data.length){
+        resolve(data)
         return;
       }
-
-      setStorage(checkStorage('localStorage'),key,value,expiryInMinutes)
+      reject(data)
+    },d=>{
+      setStorage(checkStorage('localStorage'), d.key, d.value, d.expiryInMinutes)
     })
-    resolve(arrOfData)
   })
 }
 

@@ -23,7 +23,8 @@ export const SimpleWebStorage = () => ({
     set: SessionStorage().set,
     remove: SessionStorage().remove,
     clear: SessionStorage().clear,
-    keys: SessionStorage().keys
+    keys: SessionStorage().keys,
+    setBulk: SessionStorage().setBulk
   }
 })
 

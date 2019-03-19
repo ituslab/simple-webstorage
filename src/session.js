@@ -4,7 +4,8 @@ import {
   check as checkStorage,
   remove as removeStorage,
   clear as clearStorage,
-  keys as keysStorage
+  keys as keysStorage,
+  validateKeys
 } from './storage'
 
 export const get = key => {
@@ -55,4 +56,18 @@ export const keys = () => {
   })
 }
 
-export default () => ({ get, set, remove, clear, keys })
+export const setBulk = arrOfData => {
+  return new Promise((resolve,reject)=>{
+    validateKeys(arrOfData,data=>{
+      if(data.length){
+        resolve(data)
+        return;
+      }
+      reject(data)
+    },d=>{
+      setStorage(checkStorage('sessionStorage'), d.key, d.value, d.expiryInMinutes)
+    })
+  })
+}
+
+export default () => ({ get, set, remove, clear, keys,setBulk })

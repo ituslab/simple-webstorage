@@ -5,7 +5,7 @@ import "@babel/polyfill"
 import SimpleWebStorage from '../lib/index'
 import LocalStorage, { get as getLocalStorage, setBulk as setBulkLocal  } from '../lib/local'
 import CookieStorage, { get as getCookieStorage } from '../lib/cookie'
-import SessionStorage, { get as getSessionStorage } from '../lib/session'
+import SessionStorage, { get as getSessionStorage, setBulk as setBulkSession } from '../lib/session'
 import { isNotNull, check as checkStorage } from '../lib/storage'
 
 
@@ -135,7 +135,81 @@ describe('SessionStorage API testing...', () => {
         .clear()
         .then(r=> expect(r).toBe(true))
   });
+
+  test('[setBulk] set array of data, must have 2 length of datas', () => {
+    return asyncSession
+      .setBulk([
+        {
+          key:'a',
+          value:'hello'
+        },
+        {
+          key:'b',
+          value:'world'
+        }
+      ])
+        .then(r=> expect(r).toHaveLength(2))
+  });
+
+  test('[get] get key a, from session storage must return \"hello\"', () => {
+    return asyncSession
+      .get('a')  
+      .then(r=> expect(r).toBe('hello'))
+  });
+
+  test('[setBulk] set array of data,fill it with invalid data. must error', () => {
+    expect.assertions(1)
+    return asyncSession
+      .setBulk([
+        {
+          key:'a',
+          value:'hello'
+        },
+        {
+          thisIsInvalid:'key',
+          mustBeError:'yes its must'
+        }
+      ])
+      .catch(r=> expect(r.message).toMatch(/invalid data format/))
+  });
+
+  test('[setBulk] set array of data, with undefined key property. must error', () => {
+    expect.assertions(1)
+    return asyncSession
+      .setBulk([
+        {
+          value:'bar'
+        },
+        {
+          key:'a',
+          value:'b'
+        }
+      ])
+      .catch(r=> expect(r.message).toMatch(/invalid data format/))
+  });
+
+  test('[setBulk] using partial API import, [setBulkSession]', () => {
+    return setBulkSession([
+      {
+        key:'a',
+        value:'override this value'
+      },
+      {
+        key:'b',
+        value:'this one too'
+      }
+    ])
+    .then(r=> expect(r).toHaveLength(2))
+  });
+
+  test('[keys] get total keys, must have 2 lengths', () => {
+    return asyncSession
+      .keys()
+      .then(r=> expect(r).toHaveLength(2))
+  });
 });
+
+
 
 describe('LocalStorage API testing...', () => {
   test('[set]should not error',()=>{

@@ -185,4 +185,42 @@ describe('LocalStorage API testing...', () => {
         .clear()
         .then(r=> expect(r).toBe(true))
   });
+
+  test('[setBulk] set array of data, must have 2 length of datas', () => {
+      return asyncLocal
+        .setBulk([
+          {
+            key:'a',
+            value:'hello'
+          },
+          {
+            key:'b',
+            value:'world'
+          }
+        ])
+          .then(r=> expect(r).toHaveLength(2))
+  });
+
+  test('[get] get key a, from local storage must return \"hello\"', () => {
+    return asyncLocal
+      .get('a')  
+      .then(r=> expect(r).toBe('hello'))
+  });
+
+  test('[setBulk] set array of data,fill it with invalid data. must error', () => {
+    expect.assertions(1)
+    return asyncLocal
+      .setBulk([
+        {
+          key:'a',
+          value:'hello'
+        },
+        {
+          thisIsInvalid:'key',
+          mustBeError:'yes its must'
+        }
+      ])
+      .catch(r=> expect(r.message).toMatch(/invalid data format/))
+  });
+
 });

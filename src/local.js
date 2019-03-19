@@ -4,7 +4,8 @@ import {
   check as checkStorage,
   remove as removeStorage,
   clear as clearStorage,
-  keys as keysStorage
+  keys as keysStorage,
+  isNotNull
 } from './storage'
 
 export const get = key => {
@@ -25,6 +26,26 @@ export const set = (key, value = 0, expiryInMinutes = null) => {
       }catch(err){
         reject(false)
       }
+  })
+}
+
+export const setBulk = arrOfData => {
+  return new Promise((resolve,reject)=>{
+    arrOfData.forEach((d,idx)=>{
+      const invalidKeys = Object
+        .keys(d)
+        .filter(r=> r !== 'key' && r !== 'value' && r !== 'expiryInMinutes')
+      if(invalidKeys.length > 0) reject(new Error(`invalid data format, you have specified invalid key name , valid key names are key,value,expiryInMinutes`))      
+      const {key , value  , expiryInMinutes} = d
+      const keyIsNotNull = isNotNull(key)
+      const valueIsNotNull = isNotNull(value)
+      if(!keyIsNotNull || !valueIsNotNull) {
+        reject(new Error(`invalid data format, check the index ${idx}, are key or value property exist ?`))
+        return
+      }
+      setStorage(checkStorage('localStorage'),key,value,expiryInMinutes)
+    })
+    resolve(arrOfData)
   })
 }
 
@@ -56,4 +77,4 @@ export const keys = () => {
   })
 }
 
-export default () => ({ get, set, remove, clear, keys })
+export default () => ({ get, set, remove, clear, keys, setBulk })

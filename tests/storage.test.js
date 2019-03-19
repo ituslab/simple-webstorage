@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+import "@babel/polyfill"
 import SimpleWebStorage from '../lib/index'
 import LocalStorage, { get as getLocalStorage } from '../lib/local'
 import CookieStorage, { get as getCookieStorage } from '../lib/cookie'

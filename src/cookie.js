@@ -17,6 +17,12 @@ export const set = (key, value = 0, expiryInMinutes = 5) => {
   })
 }
 
+export const setBulk = arrOfData => {
+  return new Promise((resolve,reject)=>{
+    
+  })
+}
+
 export const get = key => {
   return new Promise((resolve,reject)=>{
     key = key + '='
@@ -76,4 +82,4 @@ export const keys = () => {
   })
 }
 
-export default () => ({ get, set, remove, clear, keys })
+export default () => ({ get, set, remove, clear, keys,setBulk })

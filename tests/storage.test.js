@@ -2,11 +2,11 @@
  * @jest-environment jsdom
  */
 import "@babel/polyfill"
-import SimpleWebStorage from '../lib/index'
-import LocalStorage, { get as getLocalStorage, setBulk as setBulkLocal  } from '../lib/local'
-import CookieStorage, { get as getCookieStorage } from '../lib/cookie'
-import SessionStorage, { get as getSessionStorage, setBulk as setBulkSession } from '../lib/session'
-import { isNotNull, check as checkStorage } from '../lib/storage'
+import  '../lib/bundle/simple-webstorage.min'
+import LocalStorage, { get as getLocalStorage, setBulk as setBulkLocal  } from '../src/local'
+import CookieStorage, { get as getCookieStorage } from '../src/cookie'
+import SessionStorage, { get as getSessionStorage, setBulk as setBulkSession } from '../src/session'
+import { isNotNull, check as checkStorage } from '../src/storage'
 
 
 
@@ -330,6 +330,60 @@ describe('LocalStorage API testing...', () => {
     return asyncLocal
       .keys()
       .then(r=> expect(r).toHaveLength(2))
+  });
+
+});
+
+describe('[just check] all local,session,and cookie data', () => {
+  test('[localStorage] get all local data, must return truthy', () => {
+    const lStorage = localStorage
+    expect(lStorage).toBeDefined()
+    console.log('localStorage',lStorage)
+  });
+  test('[sessionStorage] get all local data, must return truthy', () => {
+    const sStorage = sessionStorage
+    expect(sStorage).toBeDefined()
+    console.log('sessionStorage',sStorage)
+  });
+  
+});
+
+describe('utilities test', () => {
+  
+  test('[set]set two data, must not error', () => {
+    expect.assertions(3)
+    asyncCookie
+      .set('x','hello')
+      .then(r=> expect(r).toBeTruthy())
+    asyncCookie
+      .set('y','world')
+      .then(r=> expect(r).toBeTruthy())
+    asyncCookie
+      .set('z','foo',25)
+      .then(r=> expect(r).toBeTruthy())
+  });
+
+  test('[cookieStorage] get all document.cookie data, must return truthy', () => {
+    const dCookie = document.cookie
+    expect(dCookie).toBeDefined()
+    console.log('dCookie',dCookie)
+  });
+
+  test('[forEach]do for loop against document.cookie', () => {
+    const arrSplitted = document.cookie.split(';')
+    console.log('arrSplitted',arrSplitted)
+    let validArr = arrSplitted
+      .map(v=>{
+        let a = v.split('=')
+        let key = a[0].trim().replace('\"','').replace('\"','')
+        let value = a[1].trim().replace('\"','').replace('\"','')
+        return {
+          key,
+          value
+        }
+      })
+      expect(validArr).toHaveLength(3)
+      console.log('validArr',validArr)
   });
 
 });

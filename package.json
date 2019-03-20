@@ -1,6 +1,6 @@
 {
   "name": "@itpolsri/simple-webstorage",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Asynchronous Lightweight utilities that can make easier to write and read application storage in client browser.",
   "main": "src/index.js",
   "scripts": {
@@ -33,14 +33,14 @@
   "author": "IT Polsri. <itpolsri@gmail.com>",
   "contributors": [
     {
-      "name":"Arief Kahfi",
-      "email":"ariefkahfi@gmail.com",
-      "url":"https://github.com/ariefkahfi"
+      "name": "Arief Kahfi",
+      "email": "ariefkahfi@gmail.com",
+      "url": "https://github.com/ariefkahfi"
     },
     {
-      "name":"Sutan Gading",
-      "email":"sutan.gnst@gmail.com",
-      "url":"https://github.com/sutanlab"
+      "name": "Sutan Gading",
+      "email": "sutan.gnst@gmail.com",
+      "url": "https://github.com/sutanlab"
     }
   ],
   "license": "MIT",

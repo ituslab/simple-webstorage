@@ -78,4 +78,4 @@ export const keys = () => {
   })
 }
 
-export default () => ({ get, set, remove, clear, keys,setBulk })
+export default () => ({ get, set, remove, clear, keys })

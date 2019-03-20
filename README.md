@@ -130,7 +130,8 @@ cookie
 ### 2. All in minified js
 
 ```html
-<script type="text/javascript" src="https://unpkg.com/@itpolsri/simple-webstorage@1.0.0/lib/bundle/simple-webstorage.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/babel-polyfill@6.26.0/dist/polyfill.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@itpolsri/simple-webstorage@1.0.1/lib/bundle/simple-webstorage.min.js"></script>
 <script type="text/javascript">
   var storage = SimpleWebStorage();
 

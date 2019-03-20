@@ -1,9 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  entry: {
-    index:'./src/index.js',
-  },
+  entry:['./src/index.js'],
   mode: 'production',
   module:{
     rules:[
@@ -13,5 +11,10 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'lib','bundle'),
     filename: 'simple-webstorage.min.js',
+  },
+  optimization:{
+    splitChunks:{
+      chunks:'all'
+    }
   }
 }

@@ -2,17 +2,12 @@
   "name": "@itpolsri/simple-webstorage",
   "version": "1.0.0",
   "description": "Asynchronous Lightweight utilities that can make easier to write and read application storage in client browser.",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "scripts": {
     "build": "webpack",
     "prepublish": "webpack",
     "pretest": "webpack",
     "test": "IS_TEST_MODE=true jest --coverage"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
   },
   "files": [
     "lib/bundle",

@@ -1,4 +1,8 @@
 # [Async Simple Web Storage](https://www.npmjs.com/package/@itpolsri/simple-webstorage)
+
+
+  [![Build Status](https://travis-ci.com/itpolsri/simple-webstorage.svg?branch=master)](https://travis-ci.com/itpolsri/simple-webstorage)
+
 > Lightweight utilities that can make easier to write and read application storage in client browser.
 Inspired by [Sutan gading's simple web storage](https://github.com/sutanlab/simple-webstorage), one of our team member
 

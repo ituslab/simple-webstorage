@@ -1,7 +1,7 @@
 {
-  "name": "simple-webstorage",
-  "version": "1.4.0",
-  "description": "Lightweight utilities that can make easier to write and read application storage in client browser.",
+  "name": "@itpolsri/simple-webstorage",
+  "version": "1.0.0",
+  "description": "Asynchronous Lightweight utilities that can make easier to write and read application storage in client browser.",
   "main": "lib/index.js",
   "scripts": {
     "build": "webpack",
@@ -15,12 +15,12 @@
     ]
   },
   "files": [
-    "lib",
+    "lib/bundle",
     "src"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sutanlab/simple-webstorage.git"
+    "url": "git+https://github.com/itpolsri/simple-webstorage.git"
   },
   "keywords": [
     "web-storage",
@@ -30,14 +30,29 @@
     "cookie-storage",
     "client-storage",
     "storage",
-    "cookie"
+    "cookie",
+    "async",
+    "promise",
+    "non-blocking"
   ],
-  "author": "Sutan Nst. <sutan.gnst@gmail.com>",
+  "author": "IT Polsri. <itpolsri@gmail.com>",
+  "contributors": [
+    {
+      "name":"Arief Kahfi",
+      "email":"ariefkahfi@gmail.com",
+      "url":"https://github.com/ariefkahfi"
+    },
+    {
+      "name":"Sutan Gading",
+      "email":"sutan.gnst@gmail.com",
+      "url":"https://github.com/sutanlab"
+    }
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sutanlab/simple-webstorage/issues"
+    "url": "https://github.com/itpolsri/simple-webstorage/issues"
   },
-  "homepage": "https://github.com/sutanlab/simple-webstorage#readme",
+  "homepage": "https://github.com/itpolsri/simple-webstorage#readme",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",

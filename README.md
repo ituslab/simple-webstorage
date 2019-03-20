@@ -1,4 +1,4 @@
-# [Async Simple Web Storage](https://www.npmjs.com/package/simple-webstorage)
+# [Async Simple Web Storage](https://www.npmjs.com/package/@itpolsri/simple-webstorage)
 > Lightweight utilities that can make easier to write and read application storage in client browser.
 Inspired by [Sutan gading's simple web storage](https://github.com/sutanlab/simple-webstorage), one of our team member
 
@@ -15,13 +15,13 @@ Inspired by [Sutan gading's simple web storage](https://github.com/sutanlab/simp
 ### 1. Use Package with NPM
 
 ```bash
-$ npm i simple-webstorage --save
+$ npm i @itpolsri/simple-webstorage
 ```
 
 #### All API import
 
 ```js
-import SimpleWebStorage from 'simple-webstorage'
+import SimpleWebStorage from '@itpolsri/simple-webstorage'
 
 const storage = SimpleWebStorage()
 
@@ -64,7 +64,7 @@ import {
   get as getLocalStorage, 
   set as setLocalStorage ,
   setBulk as setBulkLocalStorage
-} from 'simple-webstorage/lib/local'
+} from '@itpolsri/simple-webstorage/src/local'
 
 
 setLocalStorage('key', {
@@ -98,7 +98,7 @@ getLocalStorage('key')
 
 ```js
 // # for cookie storage
-import CookieStorage from 'simple-webstorage/lib/cookie'
+import CookieStorage from '@itpolsri/simple-webstorage/lib/cookie'
 
 // # for local storage
 // import LocalStorage from 'simple-webstorage/lib/local'
@@ -130,7 +130,7 @@ cookie
 ### 2. All in minified js
 
 ```html
-<script type="text/javascript" src="https://sutanlab.js.org/simple-webstorage/lib/bundle/simple-webstorage.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@itpolsri/simple-webstorage@1.0.0/lib/bundle/simple-webstorage.min.js"></script>
 <script type="text/javascript">
   var storage = SimpleWebStorage();
 

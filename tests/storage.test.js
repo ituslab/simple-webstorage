@@ -348,42 +348,42 @@ describe('[just check] all local,session,and cookie data', () => {
   
 });
 
-describe('utilities test', () => {
+// describe('utilities test', () => {
   
-  test('[set]set two data, must not error', () => {
-    expect.assertions(3)
-    asyncCookie
-      .set('x','hello')
-      .then(r=> expect(r).toBeTruthy())
-    asyncCookie
-      .set('y','world')
-      .then(r=> expect(r).toBeTruthy())
-    asyncCookie
-      .set('z','foo',25)
-      .then(r=> expect(r).toBeTruthy())
-  });
+//   test('[set]set two data, must not error', () => {
+//     expect.assertions(3)
+//     asyncCookie
+//       .set('x','hello')
+//       .then(r=> expect(r).toBeTruthy())
+//     asyncCookie
+//       .set('y','world')
+//       .then(r=> expect(r).toBeTruthy())
+//     asyncCookie
+//       .set('z','foo',25)
+//       .then(r=> expect(r).toBeTruthy())
+//   });
 
-  test('[cookieStorage] get all document.cookie data, must return truthy', () => {
-    const dCookie = document.cookie
-    expect(dCookie).toBeDefined()
-    console.log('dCookie',dCookie)
-  });
+//   test('[cookieStorage] get all document.cookie data, must return truthy', () => {
+//     const dCookie = document.cookie
+//     expect(dCookie).toBeDefined()
+//     console.log('dCookie',dCookie)
+//   });
 
-  test('[forEach]do for loop against document.cookie', () => {
-    const arrSplitted = document.cookie.split(';')
-    console.log('arrSplitted',arrSplitted)
-    let validArr = arrSplitted
-      .map(v=>{
-        let a = v.split('=')
-        let key = a[0].trim().replace('\"','').replace('\"','')
-        let value = a[1].trim().replace('\"','').replace('\"','')
-        return {
-          key,
-          value
-        }
-      })
-      expect(validArr).toHaveLength(3)
-      console.log('validArr',validArr)
-  });
+//   test('[forEach]do for loop against document.cookie', () => {
+//     const arrSplitted = document.cookie.split(';')
+//     console.log('arrSplitted',arrSplitted)
+//     let validArr = arrSplitted
+//       .map(v=>{
+//         let a = v.split('=')
+//         let key = a[0].trim().replace('\"','').replace('\"','')
+//         let value = a[1].trim().replace('\"','').replace('\"','')
+//         return {
+//           key,
+//           value
+//         }
+//       })
+//       expect(validArr).toHaveLength(3)
+//       console.log('validArr',validArr)
+//   });
 
-});
+// });

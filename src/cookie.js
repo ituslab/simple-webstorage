@@ -17,11 +17,7 @@ export const set = (key, value = 0, expiryInMinutes = 5) => {
   })
 }
 
-export const setBulk = arrOfData => {
-  return new Promise((resolve,reject)=>{
-    
-  })
-}
+
 
 export const get = key => {
   return new Promise((resolve,reject)=>{

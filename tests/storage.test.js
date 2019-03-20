@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import "../lib/bundle/1.simple-webstorage.min"
+import '@babel/polyfill'
 import  '../lib/bundle/simple-webstorage.min'
 import LocalStorage, { get as getLocalStorage, setBulk as setBulkLocal  } from '../src/local'
 import CookieStorage, { get as getCookieStorage } from '../src/cookie'

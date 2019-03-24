@@ -1,4 +1,4 @@
-import { isNotNull } from './storage'
+import { isNotNull , validateKeys } from './storage'
 
 export const set = (key, value = 0, expiryInMinutes = 5) => {
   return new Promise((resolve,reject)=>{
@@ -14,6 +14,20 @@ export const set = (key, value = 0, expiryInMinutes = 5) => {
     } catch (error) {
       reject(error)
     }
+  })
+}
+
+export const setBulk = arrOfData => {
+  return new Promise((resolve,reject)=>{
+    validateKeys(arrOfData , data=>{
+      if(data.length) {
+        resolve(data)
+        return;
+      }
+      reject(data)
+    },async (d)=>{
+      await set(d.key , d.value , d.expiryInMinutes)
+    })
   })
 }
 
@@ -78,4 +92,4 @@ export const keys = () => {
   })
 }
 
-export default () => ({ get, set, remove, clear, keys })
+export default () => ({ get, set, remove, clear, keys, setBulk })

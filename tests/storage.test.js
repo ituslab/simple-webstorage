@@ -4,7 +4,7 @@
 import '@babel/polyfill'
 import  '../lib/bundle/simple-webstorage.min'
 import LocalStorage, { get as getLocalStorage, setBulk as setBulkLocal  } from '../src/local'
-import CookieStorage, { get as getCookieStorage } from '../src/cookie'
+import CookieStorage, { get as getCookieStorage , setBulk as setBulkCookie } from '../src/cookie'
 import SessionStorage, { get as getSessionStorage, setBulk as setBulkSession } from '../src/session'
 import { isNotNull, check as checkStorage } from '../src/storage'
 
@@ -84,6 +84,78 @@ describe('CookieStorage API testing...', () => {
       return asyncCookie
         .clear()
         .then(r=> expect(r).toBe(true))
+  });
+
+  test('[setBulk] set array of data, must have 2 length of datas', () => {
+    return asyncCookie
+      .setBulk([
+        {
+          key:'a',
+          value:'hello'
+        },
+        {
+          key:'b',
+          value:'world'
+        }
+      ])
+        .then(r=> expect(r).toHaveLength(2))
+  });
+
+  test('[get] get key a, from session storage must return \"hello\"', () => {
+    return asyncCookie
+      .get('a')  
+      .then(r=> expect(r).toBe('hello'))
+  });
+
+  test('[setBulk] set array of data,fill it with invalid data. must error', () => {
+    expect.assertions(1)
+    return asyncCookie
+      .setBulk([
+        {
+          key:'a',
+          value:'hello'
+        },
+        {
+          thisIsInvalid:'key',
+          mustBeError:'yes its must'
+        }
+      ])
+      .catch(r=> expect(r.message).toMatch(/invalid data format/))
+  });
+
+  test('[setBulk] set array of data, with undefined key property. must error', () => {
+    expect.assertions(1)
+    return asyncCookie
+      .setBulk([
+        {
+          value:'bar'
+        },
+        {
+          key:'a',
+          value:'b'
+        }
+      ])
+      .catch(r=> expect(r.message).toMatch(/invalid data format/))
+  });
+
+  test('[setBulk] using partial API import, [setBulkCookie]', () => {
+    return setBulkCookie([
+      {
+        key:'a',
+        value:'override this value'
+      },
+      {
+        key:'b',
+        value:'this one too'
+      }
+    ])
+    .then(r=> expect(r).toHaveLength(2))
+  });
+
+  test('[keys] get total keys, must have 2 lengths', () => {
+    return asyncCookie
+      .keys()
+      .then(r=> expect(r).toHaveLength(2))
   });
 });
 
@@ -345,45 +417,12 @@ describe('[just check] all local,session,and cookie data', () => {
     expect(sStorage).toBeDefined()
     console.log('sessionStorage',sStorage)
   });
+
+  test('[cookieStorage] get all document.cookie data, must return truthy', () => {
+    const dCookie = document.cookie
+    expect(dCookie).toBeDefined()
+    console.log('document.Cookie',dCookie)
+  });
   
 });
 
-// describe('utilities test', () => {
-  
-//   test('[set]set two data, must not error', () => {
-//     expect.assertions(3)
-//     asyncCookie
-//       .set('x','hello')
-//       .then(r=> expect(r).toBeTruthy())
-//     asyncCookie
-//       .set('y','world')
-//       .then(r=> expect(r).toBeTruthy())
-//     asyncCookie
-//       .set('z','foo',25)
-//       .then(r=> expect(r).toBeTruthy())
-//   });
-
-//   test('[cookieStorage] get all document.cookie data, must return truthy', () => {
-//     const dCookie = document.cookie
-//     expect(dCookie).toBeDefined()
-//     console.log('dCookie',dCookie)
-//   });
-
-//   test('[forEach]do for loop against document.cookie', () => {
-//     const arrSplitted = document.cookie.split(';')
-//     console.log('arrSplitted',arrSplitted)
-//     let validArr = arrSplitted
-//       .map(v=>{
-//         let a = v.split('=')
-//         let key = a[0].trim().replace('\"','').replace('\"','')
-//         let value = a[1].trim().replace('\"','').replace('\"','')
-//         return {
-//           key,
-//           value
-//         }
-//       })
-//       expect(validArr).toHaveLength(3)
-//       console.log('validArr',validArr)
-//   });
-
-// });

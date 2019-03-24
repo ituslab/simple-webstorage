@@ -158,12 +158,15 @@ cookie
 
 | Storage   | Method      | Parameters                                                                                  |
 |-----------|-------------|---------------------------------------------------------------------------------------------|
-| `asyncLocal`   | set         | `key` (type: String), `value` (type: any, default: 0), `expiryInMinutes` (type: Number, default: null)  |
-| `asyncCookie` or `asyncSession` or `asyncLocal`   | get         | `key` (type: String)                                                           |
-| `asyncCookie` or `asyncSession`   | set         | `key` (type: String), `value` (type: any, default: 0), `expiryInMinutes` (type: Number, default: 5)     |
-| `asyncCookie` or `asyncSession` or `asyncLocal`   | remove      | `key` (type: String)                                                                        |
-| `asyncCookie` or `asyncSession` or `asyncLocal`   | keys        |  none                                                                                       |
-| `asyncCookie` or `asyncSession` or `asyncLocal`   | clear       |  none                                                                               |
+| `asyncLocal`   | set | `key` (type: String), `value` (type: any, default: 0), `expiryInMinutes` (type: Number, default: null)  |
+| `asyncCookie` or `asyncSession` or `asyncLocal`   | get | `key` (type: String)|
+| `asyncCookie` or `asyncSession`   | set | `key` (type: String), `value` (type: any, default: 0), `expiryInMinutes` (type: Number, default: 5) |
+| `asyncCookie` or `asyncSession` or `asyncLocal`   | remove      | `key` (type: String) |
+| `asyncCookie` or `asyncSession` or `asyncLocal`   | keys        |  none |
+| `asyncCookie` or `asyncSession` or `asyncLocal`   | clear       |  none |
+| `asyncCoookie` or `asyncSession` or `asyncLocal` | setBulk | `arrOfData` (type: array) |
+
+
 
 ---
 Copyright © 2019 by IT-Polsri, soon will be IT-Us  🙂
